@@ -54,9 +54,6 @@ void DisableCaches();
 /************ Function Definitions ************/
 
 int main(void) {
-   Xil_ICacheEnable();
-   Xil_DCacheEnable();
-
    DemoInitialize();
    DemoRun();
    DemoCleanup();
