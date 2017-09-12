@@ -54,18 +54,18 @@ void DisableCaches();
 /************ Function Definitions ************/
 
 int main(void) {
-	Xil_ICacheEnable();
-	Xil_DCacheEnable();
+   Xil_ICacheEnable();
+   Xil_DCacheEnable();
 
-	DemoInitialize();
-	DemoRun();
-	DemoCleanup();
-	return 0;
+   DemoInitialize();
+   DemoRun();
+   DemoCleanup();
+   return 0;
 }
 
 void DemoInitialize() {
    EnableCaches();
-	MAXSONAR_begin(&pmodMAXSONAR, PMOD_MAXSONAR_BASEADDR, CLK_FREQ);
+   MAXSONAR_begin(&pmodMAXSONAR, PMOD_MAXSONAR_BASEADDR, CLK_FREQ);
 }
 
 
