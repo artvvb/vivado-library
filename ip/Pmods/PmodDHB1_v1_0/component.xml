@@ -1425,7 +1425,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>2caef935</spirit:value>
+            <spirit:value>38f95148</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -3208,8 +3208,8 @@
       </xilinx:taxonomies>
       <xilinx:displayName>PmodDHB1_v1_0</xilinx:displayName>
       <xilinx:definitionSource>IPI</xilinx:definitionSource>
-      <xilinx:coreRevision>5</xilinx:coreRevision>
-      <xilinx:coreCreationDateTime>2017-09-15T00:57:46Z</xilinx:coreCreationDateTime>
+      <xilinx:coreRevision>6</xilinx:coreRevision>
+      <xilinx:coreCreationDateTime>2017-09-15T18:16:22Z</xilinx:coreCreationDateTime>
       <xilinx:tags>
         <xilinx:tag xilinx:name="natinst.com:user:PmodDHB1:1.0_ARCHIVE_LOCATION">c:/Users/user/Desktop/vivLib/ip/Pmods/PmodDHB1_v1_0</xilinx:tag>
         <xilinx:tag xilinx:name="digilentinc.com:user:PmodDHB1:1.0_ARCHIVE_LOCATION">c:/Users/user/Desktop/vivLib/ip/Pmods/PmodDHB1_v1_0</xilinx:tag>
@@ -3306,7 +3306,7 @@
       <xilinx:xilinxVersion>2016.4</xilinx:xilinxVersion>
       <xilinx:checksum xilinx:scope="busInterfaces" xilinx:value="34e0b0cf"/>
       <xilinx:checksum xilinx:scope="memoryMaps" xilinx:value="7674460b"/>
-      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="6bc0c0b5"/>
+      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="c83c1da6"/>
       <xilinx:checksum xilinx:scope="ports" xilinx:value="049f9d1b"/>
       <xilinx:checksum xilinx:scope="parameters" xilinx:value="a19d09e4"/>
     </xilinx:packagingInfo>

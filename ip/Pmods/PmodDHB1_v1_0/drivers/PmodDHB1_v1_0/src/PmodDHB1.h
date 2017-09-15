@@ -1,6 +1,6 @@
 /******************************************************************************/
 /*                                                                            */
-/* PmodDHB1.h -- Driver definitions for the PmodMAXSONAR                      */
+/* PmodDHB1.h -- Driver definitions for the PmodDHB1                          */
 /*                                                                            */
 /******************************************************************************/
 /* Author: Arvin Tang                                                         */
@@ -19,7 +19,6 @@
 
 #ifndef PmodDHB1_H
 #define PmodDHB1_H
-
 
 /************ Include Files ************/
 
