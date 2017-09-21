@@ -1,3 +1,21 @@
+/******************************************************************************/
+/*                                                                            */
+/* PWM_Analyzer.h -- Driver definitions for the PWM_Analyzer IP               */
+/*                                                                            */
+/******************************************************************************/
+/* Author: Arvin Tang                                                         */
+/*                                                                            */
+/******************************************************************************/
+/* File Description:                                                          */
+/*                                                                            */
+/* This file contains the drivers for the PWM_Analyver IP from Digilent.      */
+/*                                                                            */
+/******************************************************************************/
+/* Revision History:                                                          */
+/*                                                                            */
+/*    09/21/2017(atangzwj): Created                                           */
+/*                                                                            */
+/******************************************************************************/
 
 #ifndef PWM_ANALYZER_H
 #define PWM_ANALYZER_H
@@ -11,9 +29,10 @@
 
 /************ Macro Definitions ************/
 
-#define OFF_TIME_OFFSET 0
-#define ON_TIME_OFFSET  4
-#define PERIOD_OFFSET   8
+// Register offsets for PWM_Analyzer's AXI GPIO registers
+#define PWM_ANALYZER_OFF_TIME_OFFSET 0
+#define PWM_ANALYZER_ON_TIME_OFFSET  4
+#define PWM_ANALYZER_PERIOD_OFFSET   8
 
 
 /**************************** Type Definitions *****************************/
@@ -82,36 +101,36 @@ XStatus PWM_ANALYZER_Reg_SelfTest(void * baseaddr_p);
 
 /************ Function Prototypes ************/
 
-u32 getDutyCycle_percent(u32 baseAddr);
+u32 PWM_Analyzer_GetDutyCycle_percent(u32 baseAddr);
 
-double getDutyCycle_decFrac(u32 baseAddr);
+double PWM_Analyzer_GetDutyCycle_decFrac(u32 baseAddr);
 
 /****** Data in milliseconds (ms) ******/
-u32 getOffTime_ms(u32 baseAddr, int clk_freq);
+u32 PWM_Analyzer_GetOffTime_ms(u32 baseAddr, int clk_freq);
 
-u32 getOnTime_ms(u32 baseAddr, int clk_freq);
+u32 PWM_Analyzer_GetOnTime_ms(u32 baseAddr, int clk_freq);
 
-u32 getPeriod_ms(u32 baseAddr, int clk_freq);
+u32 PWM_Analyzer_GetPeriod_ms(u32 baseAddr, int clk_freq);
 
 /****** Data in microseconds (us) ******/
-u32 getOffTime_us(u32 baseAddr, int clk_freq);
+u32 PWM_Analyzer_GetOffTime_us(u32 baseAddr, int clk_freq);
 
-u32 getOnTime_us(u32 baseaddr, int clk_freq);
+u32 PWM_Analyzer_GetOnTime_us(u32 baseaddr, int clk_freq);
 
-u32 getPeriod_us(u32 baseAddr, int clk_freq);
+u32 PWM_Analyzer_GetPeriod_us(u32 baseAddr, int clk_freq);
 
 /****** Data in nanoseconds (ns) ******/
-u32 getOffTime_ns(u32 baseAddr, int clk_freq);
+u32 PWM_Analyzer_GetOffTime_ns(u32 baseAddr, int clk_freq);
 
-u32 getOnTime_ns(u32 baseAddr, int clk_freq);
+u32 PWM_Analyzer_GetOnTime_ns(u32 baseAddr, int clk_freq);
 
-u32 getPeriod_ns(u32 baseAddr, int clk_freq);
+u32 PWM_Analyzer_GetPeriod_ns(u32 baseAddr, int clk_freq);
 
 /****** Data in clock edges ******/
-u32 getOffTime_clkEdges(u32 baseAddr);
+u32 PWM_Analyzer_GetOffTime_clkEdges(u32 baseAddr);
 
-u32 getOnTime_clkEdges(u32 baseAddr);
+u32 PWM_Analyzer_GetOnTime_clkEdges(u32 baseAddr);
 
-u32 getPeriod_clkEdges(u32 baseAddr);
+u32 PWM_Analyzer_GetPeriod_clkEdges(u32 baseAddr);
 
 #endif // PWM_ANALYZER_H

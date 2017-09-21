@@ -1,4 +1,21 @@
-
+/******************************************************************************/
+/*                                                                            */
+/* PWM_Analyzer.c -- Driver definitions for the PWM_Analyzer IP               */
+/*                                                                            */
+/******************************************************************************/
+/* Author: Arvin Tang                                                         */
+/*                                                                            */
+/******************************************************************************/
+/* File Description:                                                          */
+/*                                                                            */
+/* This file contains the drivers for the PWM_Analyver IP from Digilent.      */
+/*                                                                            */
+/******************************************************************************/
+/* Revision History:                                                          */
+/*                                                                            */
+/*    09/21/2017(atangzwj): Created                                           */
+/*                                                                            */
+/******************************************************************************/
 
 /************ Include Files ************/
 
@@ -9,8 +26,8 @@
 /************ Function Definitions ************/
 
 /*
- * u32 getDutyCycle_percent(u32 baseAddr)
- * double getDutyCycle_decFrac(u32 baseAddr)
+ * u32 PWM_Analyzer_GetDutyCycle_percent(u32 baseAddr)
+ * double PWM_Analyzer_GetDutyCycle_decFrac(u32 baseAddr)
  * -----------------------------------------------------------------------------
  * Parameters:
  *       baseAddr: Base address of PWM_Analyzer registers
@@ -25,20 +42,20 @@
  *        - percentage (out of 100)
  *        - decimal-fraction (out of 1)
  */
-u32 getDutyCycle_percent(u32 baseAddr) {
-   u64 on_time = (u64) getOnTime_clkEdges(baseAddr);
-   u32 period = getPeriod_clkEdges(baseAddr);
+u32 PWM_Analyzer_GetDutyCycle_percent(u32 baseAddr) {
+   u64 on_time = (u64) PWM_Analyzer_GetOnTime_clkEdges(baseAddr);
+   u32 period = PWM_Analyzer_GetPeriod_clkEdges(baseAddr);
    return (u32) (on_time * 1000 / period + 5) / 10;
 }
 
-double getDutyCycle_decFrac(u32 baseAddr) {
-   return getDutyCycle_percent(baseAddr) / 100.0;
+double PWM_Analyzer_GetDutyCycle_decFrac(u32 baseAddr) {
+   return PWM_Analyzer_GetDutyCycle_percent(baseAddr) / 100.0;
 }
 
 /*
- * u32 getOffTime_ms(u32 baseAddr, int clk_freq)
- * u32 getOnTime_ms(u32 baseAddr, int clk_freq)
- * u32 getPeriod_ms(u32 baseAddr, int clk_freq)
+ * u32 PWM_Analyzer_GetOffTime_ms(u32 baseAddr, int clk_freq)
+ * u32 PWM_Analyzer_GetOnTime_ms(u32 baseAddr, int clk_freq)
+ * u32 PWM_Analyzer_GetPeriod_ms(u32 baseAddr, int clk_freq)
  * -----------------------------------------------------------------------------
  * Parameters:
  *       baseAddr: Base address of PWM_Analyzer registers
@@ -53,25 +70,25 @@ double getDutyCycle_decFrac(u32 baseAddr) {
  *        - on time  (PWM is high/on),
  *        - period   (posedge to posedge / negedge to negedge)
  */
-u32 getOffTime_ms(u32 baseAddr, int clk_freq) {
-   u64 clk_edges = (u64) getOffTime_clkEdges(baseAddr);
+u32 PWM_Analyzer_GetOffTime_ms(u32 baseAddr, int clk_freq) {
+   u64 clk_edges = (u64) PWM_Analyzer_GetOffTime_clkEdges(baseAddr);
    return (u32) (clk_edges * 10000 / clk_freq + 5) / 10;
 }
 
-u32 getOnTime_ms(u32 baseAddr, int clk_freq) {
-   u64 clk_edges = (u64) getOnTime_clkEdges(baseAddr);
+u32 PWM_Analyzer_GetOnTime_ms(u32 baseAddr, int clk_freq) {
+   u64 clk_edges = (u64) PWM_Analyzer_GetOnTime_clkEdges(baseAddr);
    return (u32) (clk_edges * 10000 / clk_freq + 5) / 10;
 }
 
-u32 getPeriod_ms(u32 baseAddr, int clk_freq) {
-   u64 clk_edges = (u64) getPeriod_clkEdges(baseAddr);
+u32 PWM_Analyzer_GetPeriod_ms(u32 baseAddr, int clk_freq) {
+   u64 clk_edges = (u64) PWM_Analyzer_GetPeriod_clkEdges(baseAddr);
    return (u32) (clk_edges * 10000 / clk_freq + 5) / 10;
 }
 
 /*
- * u32 getOffTime_us(u32 baseAddr, int clk_freq)
- * u32 getOnTime_us(u32 baseAddr, int clk_freq)
- * u32 getPeriod_us(u32 baseAddr, int clk_freq)
+ * u32 PWM_Analyzer_GetOffTime_us(u32 baseAddr, int clk_freq)
+ * u32 PWM_Analyzer_GetOnTime_us(u32 baseAddr, int clk_freq)
+ * u32 PWM_Analyzer_GetPeriod_us(u32 baseAddr, int clk_freq)
  * -----------------------------------------------------------------------------
  * Parameters:
  *       baseAddr: Base address of PWM_Analyzer registers
@@ -86,25 +103,25 @@ u32 getPeriod_ms(u32 baseAddr, int clk_freq) {
  *        - on time  (PWM is high/on),
  *        - period   (posedge to posedge / negedge to negedge)
  */
-u32 getOffTime_us(u32 baseAddr, int clk_freq) {
-   u64 clk_edges = (u64) getOffTime_clkEdges(baseAddr);
+u32 PWM_Analyzer_GetOffTime_us(u32 baseAddr, int clk_freq) {
+   u64 clk_edges = (u64) PWM_Analyzer_GetOffTime_clkEdges(baseAddr);
    return (u32) (clk_edges * 10000000 / clk_freq + 5) / 10;
 }
 
-u32 getOnTime_us(u32 baseAddr, int clk_freq) {
-   u64 clk_edges = (u64) getOnTime_clkEdges(baseAddr);
+u32 PWM_Analyzer_GetOnTime_us(u32 baseAddr, int clk_freq) {
+   u64 clk_edges = (u64) PWM_Analyzer_GetOnTime_clkEdges(baseAddr);
    return (u32) (clk_edges * 10000000 / clk_freq + 5) / 10;
 }
 
-u32 getPeriod_us(u32 baseAddr, int clk_freq) {
-   u64 clk_edges = (u64) getPeriod_clkEdges(baseAddr);
+u32 PWM_Analyzer_GetPeriod_us(u32 baseAddr, int clk_freq) {
+   u64 clk_edges = (u64) PWM_Analyzer_GetPeriod_clkEdges(baseAddr);
    return (u32) (clk_edges * 10000000 / clk_freq + 5) / 10;
 }
 
 /*
- * u32 getOffTime_ns(u32 baseAddr, int clk_freq)
- * u32 getOnTime_ns(u32 baseAddr, int clk_freq)
- * u32 getPeriod_ns(u32 baseAddr, int clk_freq)
+ * u32 PWM_Analyzer_GetOffTime_ns(u32 baseAddr, int clk_freq)
+ * u32 PWM_Analyzer_GetOnTime_ns(u32 baseAddr, int clk_freq)
+ * u32 PWM_Analyzer_GetPeriod_ns(u32 baseAddr, int clk_freq)
  * -----------------------------------------------------------------------------
  * Parameters:
  *       baseAddr: Base address of PWM_Analyzer registers
@@ -119,25 +136,25 @@ u32 getPeriod_us(u32 baseAddr, int clk_freq) {
  *        - on time  (PWM is high/on),
  *        - period   (posedge to posedge / negedge to negedge)
  */
-u32 getOffTime_ns(u32 baseAddr, int clk_freq) {
-   u64 clk_edges = (u64) getOffTime_clkEdges(baseAddr);
+u32 PWM_Analyzer_GetOffTime_ns(u32 baseAddr, int clk_freq) {
+   u64 clk_edges = (u64) PWM_Analyzer_GetOffTime_clkEdges(baseAddr);
    return (u32) (clk_edges * 10000000000 / clk_freq + 5) / 10;
 }
 
-u32 getOnTime_ns(u32 baseAddr, int clk_freq) {
-   u64 clk_edges = (u64) getOnTime_clkEdges(baseAddr);
+u32 PWM_Analyzer_GetOnTime_ns(u32 baseAddr, int clk_freq) {
+   u64 clk_edges = (u64) PWM_Analyzer_GetOnTime_clkEdges(baseAddr);
    return (u32) (clk_edges * 10000000000 / clk_freq + 5) / 10;
 }
 
-u32 getPeriod_ns(u32 baseAddr, int clk_freq) {
-   u64 clk_edges = (u64) getPeriod_clkEdges(baseAddr);
+u32 PWM_Analyzer_GetPeriod_ns(u32 baseAddr, int clk_freq) {
+   u64 clk_edges = (u64) PWM_Analyzer_GetPeriod_clkEdges(baseAddr);
    return (u32) (clk_edges * 10000000000 / clk_freq + 5) / 10;
 }
 
 /*
- * u32 getOffTime_clkEdges(u32 baseAddr)
- * u32 getOnTime_clkEdges(u32 baseAddr)
- * u32 getPeriod_clkEdges(u32 baseAddr)
+ * u32 PWM_Analyzer_GetOffTime_clkEdges(u32 baseAddr)
+ * u32 PWM_Analyzer_GetOnTime_clkEdges(u32 baseAddr)
+ * u32 PWM_Analyzer_GetPeriod_clkEdges(u32 baseAddr)
  * -----------------------------------------------------------------------------
  * Parameters:
  *       baseAddr: Base address of PWM_Analyzer registers
@@ -151,14 +168,14 @@ u32 getPeriod_ns(u32 baseAddr, int clk_freq) {
  *        - on time  (PWM is high/on),
  *        - period   (posedge to posedge / negedge to negedge)
  */
-u32 getOffTime_clkEdges(u32 baseAddr) {
-   return Xil_In32(baseAddr + OFF_TIME_OFFSET);
+u32 PWM_Analyzer_GetOffTime_clkEdges(u32 baseAddr) {
+   return Xil_In32(baseAddr + PWM_ANALYZER_OFF_TIME_OFFSET);
 }
 
-u32 getOnTime_clkEdges(u32 baseAddr) {
-   return Xil_In32(baseAddr + ON_TIME_OFFSET);
+u32 PWM_Analyzer_GetOnTime_clkEdges(u32 baseAddr) {
+   return Xil_In32(baseAddr + PWM_ANALYZER_ON_TIME_OFFSET);
 }
 
-u32 getPeriod_clkEdges(u32 baseAddr) {
-   return Xil_In32(baseAddr + PERIOD_OFFSET);
+u32 PWM_Analyzer_GetPeriod_clkEdges(u32 baseAddr) {
+   return Xil_In32(baseAddr + PWM_ANALYZER_PERIOD_OFFSET);
 }
