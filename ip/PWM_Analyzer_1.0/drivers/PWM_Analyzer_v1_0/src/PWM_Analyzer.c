@@ -8,12 +8,12 @@
 /******************************************************************************/
 /* File Description:                                                          */
 /*                                                                            */
-/* This file contains the drivers for the PWM_Analyver IP from Digilent.      */
+/* This file contains the drivers for the PWM_Analyzer IP from Digilent.      */
 /*                                                                            */
 /******************************************************************************/
 /* Revision History:                                                          */
 /*                                                                            */
-/*    09/21/2017(atangzwj): Created                                           */
+/*    09/12/2017(atangzwj): Created                                           */
 /*                                                                            */
 /******************************************************************************/
 
