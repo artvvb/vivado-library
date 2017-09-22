@@ -1,21 +1,21 @@
-/************************************************************************/
-/*                                                                      */
-/* PmodMAXSONAR.h -- Driver definitions for the PmodMAXSONAR            */
-/*                                                                      */
-/************************************************************************/
-/* Author: Arvin Tang                                                   */
-/*                                                                      */
-/************************************************************************/
-/* File Description:                                                    */
-/*                                                                      */
-/* This file contains the drivers for the PmodMAXSONAR IP from Digilent */
-/*                                                                      */
-/************************************************************************/
-/* Revision History:                                                    */
-/*                                                                      */
-/*    09/11/2017(atangzwj): Created                                     */
-/*                                                                      */
-/************************************************************************/
+/******************************************************************************/
+/*                                                                            */
+/* PmodMAXSONAR.h -- Driver definitions for the PmodMAXSONAR                  */
+/*                                                                            */
+/******************************************************************************/
+/* Author: Arvin Tang                                                         */
+/*                                                                            */
+/******************************************************************************/
+/* File Description:                                                          */
+/*                                                                            */
+/* This file contains the drivers for the PmodMAXSONAR IP from Digilent       */
+/*                                                                            */
+/******************************************************************************/
+/* Revision History:                                                          */
+/*                                                                            */
+/*    09/11/2017(atangzwj): Created                                           */
+/*                                                                            */
+/******************************************************************************/
 
 #ifndef PmodMAXSONAR_H
 #define PmodMAXSONAR_H
@@ -41,4 +41,3 @@ void MAXSONAR_begin(PmodMAXSONAR* InstancePtr, u32 GPIO_Address, u32 clk_freq);
 u32 MAXSONAR_getDistance(PmodMAXSONAR* InstancePtr);
 
 #endif // PmodMAXSONAR_H
-

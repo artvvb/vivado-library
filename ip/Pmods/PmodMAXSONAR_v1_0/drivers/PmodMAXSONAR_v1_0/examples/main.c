@@ -1,22 +1,22 @@
-/************************************************************************/
-/*                                                                      */
-/* main.c -- Example program using the PmodMAXSONAR IP                  */
-/*                                                                      */
-/************************************************************************/
-/* Author: Arvin Tang                                                   */
-/*                                                                      */
-/************************************************************************/
-/* File Description:                                                    */
-/*                                                                      */
-/* This demo continuously polls the PmodMAXSONAR for distance and       */
-/* prints the distance.                                                 */
-/*                                                                      */
-/************************************************************************/
-/* Revision History:                                                    */
-/*                                                                      */
-/*    09/11/2017(atangzwj): Created                                     */
-/*                                                                      */
-/************************************************************************/
+/******************************************************************************/
+/*                                                                            */
+/* main.c -- Example program using the PmodMAXSONAR IP                        */
+/*                                                                            */
+/******************************************************************************/
+/* Author: Arvin Tang                                                         */
+/*                                                                            */
+/******************************************************************************/
+/* File Description:                                                          */
+/*                                                                            */
+/* This demo continuously polls the PmodMAXSONAR for distance and prints the  */
+/* distance.                                                                  */
+/*                                                                            */
+/******************************************************************************/
+/* Revision History:                                                          */
+/*                                                                            */
+/*    09/11/2017(atangzwj): Created                                           */
+/*                                                                            */
+/******************************************************************************/
 
 /************ Include Files ************/
 
@@ -35,10 +35,10 @@
 
 /************ Global Variables ************/
 
-PmodMAXSONAR pmodMAXSONAR;
+PmodMAXSONAR myDevice;
 
 
-/************ Function Protoypes ************/
+/************ Function Prototypes ************/
 
 void DemoInitialize();
 
@@ -62,7 +62,7 @@ int main(void) {
 
 void DemoInitialize() {
    EnableCaches();
-   MAXSONAR_begin(&pmodMAXSONAR, PMOD_MAXSONAR_BASEADDR, CLK_FREQ);
+   MAXSONAR_begin(&myDevice, PMOD_MAXSONAR_BASEADDR, CLK_FREQ);
 }
 
 
@@ -70,7 +70,7 @@ void DemoRun() {
    print("\n\r");
    u32 dist;
    while (1) {
-      dist = MAXSONAR_getDistance(&pmodMAXSONAR);
+      dist = MAXSONAR_getDistance(&myDevice);
       xil_printf("dist (in) = %3d\r", dist);
       usleep(200000);
    }
