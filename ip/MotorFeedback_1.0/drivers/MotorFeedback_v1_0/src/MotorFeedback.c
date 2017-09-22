@@ -1,3 +1,21 @@
+/******************************************************************************/
+/*                                                                            */
+/* MotorFeedback.c -- Driver definitions for the MotorFeedback IP             */
+/*                                                                            */
+/******************************************************************************/
+/* Author: Arvin Tang                                                         */
+/*                                                                            */
+/******************************************************************************/
+/* File Description:                                                          */
+/*                                                                            */
+/* This file contains the drivers for the MotorFeedback IP from Digilent.     */
+/*                                                                            */
+/******************************************************************************/
+/* Revision History:                                                          */
+/*                                                                            */
+/*    09/13/2017(atangzwj): Created                                           */
+/*                                                                            */
+/******************************************************************************/
 
 /************ Include Files ************/
 
@@ -8,11 +26,8 @@
 /************ Function Definitions ************/
 
 /*
- * void initMotorFeedback(MotorFeedback* motorFeedback,
- *                        u32 baseAddr,
- *                        u32 clkFreqHz,
- *                        u32 edgesPerRev,
- *                        u32 gearboxRatio)
+ * void MotorFeedback_init(MotorFeedback* motorFeedback, u32 baseAddr, 
+ *       u32 clkFreqHz, u32 edgesPerRev, u32 gearboxRatio)
  * -----------------------------------------------------------------------------
  * Parameters:
  *       motorFeedback: Pointer to a MotorFeedback object to initialize
@@ -29,11 +44,8 @@
  * Description:
  *       Initialize the MotorFeedback object with motor and encoder parameters
  */
-void initMotorFeedback(MotorFeedback* motorFeedback,
-                       u32 baseAddr,
-                       u32 clkFreqHz,
-                       u32 edgesPerRev,
-                       u32 gearboxRatio) {
+void MotorFeedback_init(MotorFeedback* motorFeedback, u32 baseAddr,
+      u32 clkFreqHz, u32 edgesPerRev, u32 gearboxRatio) {
    motorFeedback->baseAddr = baseAddr;
    motorFeedback->clkFreqHz = clkFreqHz;
    motorFeedback->edgesPerRev = edgesPerRev;
@@ -41,7 +53,7 @@ void initMotorFeedback(MotorFeedback* motorFeedback,
 }
 
 /*
- * void getMotorSpeeds(MotorFeedback* motorFeedback, int motor_speed[])
+ * void MotorFeedback_getSpeeds(MotorFeedback* motorFeedback, int motor_speed[])
  * -----------------------------------------------------------------------------
  * Parameters:
  *       motorFeedback: Pointer to a MotorFeedback object to interact with
@@ -54,22 +66,22 @@ void initMotorFeedback(MotorFeedback* motorFeedback,
  *       Measure current angular speeds of motor1 and motor2 (in RPM) and store
  *       them in motor_speed. Clears counts after taking measurements
  */
-void getMotorSpeeds(MotorFeedback* motorFeedback, int motor_speed[]) {
+void MotorFeedback_getSpeeds(MotorFeedback* motorFeedback, int motor_speed[]) {
    int m1[2];
    int m2[2];
 
-   getEdgeCounts(motorFeedback, m1, m2);
+   MotorFeedback_getEdgeCounts(motorFeedback, m1, m2);
 
    double conversionFactor = 60.0 * motorFeedback->clkFreqHz
                                   / motorFeedback->edgesPerRev
                                   / motorFeedback->gearboxRatio;
    motor_speed[0] = conversionFactor * m1[0] / m1[1];
    motor_speed[1] = conversionFactor * m2[0] / m2[1];
-   clearSpeedCounters(motorFeedback);
+   MotorFeedback_clearSpeedCounters(motorFeedback);
 }
 
 /*
- * int16_t getDistanceTraveled()
+ * int16_t MotorFeedback_getDistanceTraveled()
  * -----------------------------------------------------------------------------
  * Parameters:
  *       none
@@ -80,14 +92,15 @@ void getMotorSpeeds(MotorFeedback* motorFeedback, int motor_speed[]) {
  * Description:
  *      Return mean distance traveled by motor1 and motor2
  */
-int16_t getDistanceTraveled(MotorFeedback* motorFeedback) {
+int16_t MotorFeedback_getDistanceTraveled(MotorFeedback* motorFeedback) {
    int16_t motor_pos[2];
-   getMotorPositions(motorFeedback, motor_pos);
+   MotorFeedback_getPositions(motorFeedback, motor_pos);
    return (motor_pos[0] + motor_pos[1]) / 2;
 }
 
 /*
- * void getEdgeCounts(MotorFeedback* motorFeedback, int m1[], int m2[])
+ * void MotorFeedback_getEdgeCounts(MotorFeedback* motorFeedback, int m1[],
+ *       int m2[])
  * -----------------------------------------------------------------------------
  * Parameters:
  *       motorFeedback: Pointer to a MotorFeedback object to interact with
@@ -100,16 +113,21 @@ int16_t getDistanceTraveled(MotorFeedback* motorFeedback) {
  * Description:
  *       Store sensor and clock edge counts of each motor for computing speed
  */
-void getEdgeCounts(MotorFeedback* motorFeedback, int m1[], int m2[]) {
-   m1[0] = (int) (Xil_In32(motorFeedback->baseAddr + M1_POS_OFFSET) >> 16);
-   m1[1] = (int)  Xil_In32(motorFeedback->baseAddr + CLK_OFFSET);
+void MotorFeedback_getEdgeCounts(MotorFeedback* motorFeedback, int m1[],
+      int m2[]) {
+   u32 m1Pos_addr = motorFeedback->baseAddr + MOTORFEEDBACK_M1_POS_OFFSET;
+   u32 m2Pos_addr = motorFeedback->baseAddr + MOTORFEEDBACK_M2_POS_OFFSET;
+   u32 clk_addr   = motorFeedback->baseAddr + MOTORFEEDBACK_CLK_OFFSET;
 
-   m2[0] = (int) (Xil_In32(motorFeedback->baseAddr + M2_POS_OFFSET) >> 16);
-   m2[1] = (int)  Xil_In32(motorFeedback->baseAddr + CLK_OFFSET);
+   m1[0] = (int) (Xil_In32(m1Pos_addr) >> 16);
+   m1[1] = (int)  Xil_In32(clk_addr);
+
+   m2[0] = (int) (Xil_In32(m2Pos_addr) >> 16);
+   m2[1] = (int)  Xil_In32(clk_addr);
 }
 
 /*
- * void clearSpeedCounters(u32 MotorFeedback* motorFeedback)
+ * void MotorFeedback_clearSpeedCounters(u32 MotorFeedback* motorFeedback)
  * -----------------------------------------------------------------------------
  * Parameters:
  *       motorFeedback: Pointer to a MotorFeedback object to interact with
@@ -121,13 +139,14 @@ void getEdgeCounts(MotorFeedback* motorFeedback, int m1[], int m2[]) {
  *       Clear the registers storing counts of sensor and clock edges for
  *       computing speed
  */
-void clearSpeedCounters(MotorFeedback* motorFeedback) {
-   Xil_Out8(motorFeedback->baseAddr + CLEAR_OFFSET, 0x1);
-   Xil_Out8(motorFeedback->baseAddr + CLEAR_OFFSET, 0x0);
+void MotorFeedback_clearSpeedCounters(MotorFeedback* motorFeedback) {
+   Xil_Out8(motorFeedback->baseAddr + MOTORFEEDBACK_CLEAR_OFFSET, 0x1);
+   Xil_Out8(motorFeedback->baseAddr + MOTORFEEDBACK_CLEAR_OFFSET, 0x0);
 }
 
 /*
- * void getMotorPositions(MotorFeedback* motorFeedback, int16_t motor_pos[])
+ * void MotorFeedback_getMotorPositions(MotorFeedback* motorFeedback,
+ *       int16_t motor_pos[])
  * -----------------------------------------------------------------------------
  * Parameters:
  *       motorFeedback: Pointer to a MotorFeedback object to interact with
@@ -139,13 +158,16 @@ void clearSpeedCounters(MotorFeedback* motorFeedback) {
  * Description:
  *       Store positions of motor1, motor2 in given array
  */
-void getMotorPositions(MotorFeedback* motorFeedback, int16_t motor_pos[]) {
-   motor_pos[0] = Xil_In16(motorFeedback->baseAddr + M1_POS_OFFSET);
-   motor_pos[1] = Xil_In16(motorFeedback->baseAddr + M2_POS_OFFSET);
+void MotorFeedback_getPositions(MotorFeedback* motorFeedback,
+      int16_t motor_pos[]) {
+   u32 m1Pos_addr = motorFeedback->baseAddr + MOTORFEEDBACK_M1_POS_OFFSET;
+   u32 m2Pos_addr = motorFeedback->baseAddr + MOTORFEEDBACK_M2_POS_OFFSET;
+   motor_pos[0] = Xil_In16(m1Pos_addr);
+   motor_pos[1] = Xil_In16(m2Pos_addr);
 }
 
 /*
- * int16_t getPositionDifference(MotorFeedback* motorFeedback)
+ * int16_t MotorFeedback_getPositionDifference(MotorFeedback* motorFeedback)
  * -----------------------------------------------------------------------------
  * Parameters:
  *       motorFeedback: Pointer to a MotorFeedback object to interact with
@@ -156,12 +178,13 @@ void getMotorPositions(MotorFeedback* motorFeedback, int16_t motor_pos[]) {
  * Description:
  *       Return the difference in position (sensor edges) between motor1, motor2
  */
-int16_t getPositionDifference(MotorFeedback* motorFeedback) {
-   return (int16_t) Xil_In16(motorFeedback->baseAddr + POS_DIFF_OFFSET);
+int16_t MotorFeedback_getPositionDifference(MotorFeedback* motorFeedback) {
+   u32 pos_diff_addr = motorFeedback->baseAddr + MOTORFEEDBACK_POS_DIFF_OFFSET;
+   return (int16_t) Xil_In16(pos_diff_addr);
 }
 
 /*
- * void clearPosCounter(MotorFeedback* motorFeedback)
+ * void MotorFeedback_clearPosCounter(MotorFeedback* motorFeedback)
  * -----------------------------------------------------------------------------
  * Parameters:
  *       motorFeedback: Pointer to a MotorFeedback object to interact with
@@ -172,7 +195,7 @@ int16_t getPositionDifference(MotorFeedback* motorFeedback) {
  * Description:
  *       Clear the cumulative position counters for both motors
  */
-void clearPosCounter(MotorFeedback* motorFeedback) {
-   Xil_Out8(motorFeedback->baseAddr + CLEAR_OFFSET, 0x2);
-   Xil_Out8(motorFeedback->baseAddr + CLEAR_OFFSET, 0x0);
+void MotorFeedback_clearPosCounter(MotorFeedback* motorFeedback) {
+   Xil_Out8(motorFeedback->baseAddr + MOTORFEEDBACK_CLEAR_OFFSET, 0x2);
+   Xil_Out8(motorFeedback->baseAddr + MOTORFEEDBACK_CLEAR_OFFSET, 0x0);
 }
