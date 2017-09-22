@@ -36,8 +36,6 @@
 
 #define CLK_FREQ XPAR_CPU_M_AXI_DP_FREQ_HZ
 
-#define PWM_PER 0x00029000
-
 
 /************ Function Prototypes ************/
 
@@ -73,34 +71,36 @@ void DemoInitialize() {
    EnableCaches();
    usleep(100000);
    DHB1_begin(&pmodDHB1, GPIO_BASEADDR, PWM_BASEADDR);
-   initMotorFeedback(&motorFeedback, MOTOR_FB_BASEADDR, CLK_FREQ, 4, 48);
+   MotorFeedback_init(&motorFeedback, MOTOR_FB_BASEADDR, CLK_FREQ, 4, 48);
    PWM_Disable(PWM_BASEADDR);
 }
 
 void DemoRun() {
-   setMotorSpeeds(&pmodDHB1, 50, 50);
+   DHB1_setMotorSpeeds(&pmodDHB1, 50, 50);
+
+   MotorFeedback_clearPosCounter(&motorFeedback);
 
    PWM_Disable(PWM_BASEADDR); // Disable PWM before setting/changing direction,
    usleep(6);                 // short circuit possible otherwise
-   setDirs(&pmodDHB1, 0, 1);  // Set direction forward
+   DHB1_setDirs(&pmodDHB1, 0, 1);  // Set direction forward
    drive(240);
    usleep(2000);
 
    PWM_Disable(PWM_BASEADDR);
    usleep(6);
-   setDirs(&pmodDHB1, 1, 0);  // Set direction backward
+   DHB1_setDirs(&pmodDHB1, 1, 0);  // Set direction backward
    drive(240);
    usleep(2000);
 
    PWM_Disable(PWM_BASEADDR);
    usleep(6);
-   setDirs(&pmodDHB1, 1, 1);  // Set direction left
+   DHB1_setDirs(&pmodDHB1, 1, 1);  // Set direction left
    drive(120);
    usleep(2000);
 
    PWM_Disable(PWM_BASEADDR);
    usleep(6);
-   setDirs(&pmodDHB1, 0, 0);  // Set direction right
+   DHB1_setDirs(&pmodDHB1, 0, 0);  // Set direction right
    drive(120);
 }
 
@@ -110,11 +110,11 @@ void DemoCleanup() {
 
 void drive(int16_t sensor_edges) {
    PWM_Enable(PWM_BASEADDR);
-   int16_t dist = getDistanceTraveled(&motorFeedback);
+   int16_t dist = MotorFeedback_getDistanceTraveled(&motorFeedback);
    while (dist < sensor_edges) {
-      dist = getDistanceTraveled(&motorFeedback);
+      dist = MotorFeedback_getDistanceTraveled(&motorFeedback);
    }
-   clearPosCounter(&motorFeedback);
+   MotorFeedback_clearPosCounter(&motorFeedback);
    PWM_Disable(PWM_BASEADDR);
 }
 

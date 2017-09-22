@@ -38,16 +38,16 @@ typedef struct PmodDHB1 {
 
 void DHB1_begin(PmodDHB1* InstancePtr, u32 GPIO_Address, u32 PWM_Address);
 
-void setDirs(PmodDHB1* InstancePtr, u8 dir1, u8 dir2);
+void DHB1_setDirs(PmodDHB1* InstancePtr, u8 dir1, u8 dir2);
 
-void setDir1(PmodDHB1* InstancePtr, u8 dir1);
+void DHB1_setDir1(PmodDHB1* InstancePtr, u8 dir1);
 
-void setDir2(PmodDHB1* InstancePtr, u8 dir2);
+void DHB1_setDir2(PmodDHB1* InstancePtr, u8 dir2);
 
-void setMotorSpeeds(PmodDHB1* InstancePtr, u8 m1, u8 m2);
+void DHB1_setMotorSpeeds(PmodDHB1* InstancePtr, u8 m1, u8 m2);
 
-void setMotor1Speed(PmodDHB1* InstancePtr, u8 m1);
+void DHB1_setMotor1Speed(PmodDHB1* InstancePtr, u8 m1);
 
-void setMotor2Speed(PmodDHB1* InstancePtr, u8 m2);
+void DHB1_setMotor2Speed(PmodDHB1* InstancePtr, u8 m2);
 
 #endif // PmodDHB1_H

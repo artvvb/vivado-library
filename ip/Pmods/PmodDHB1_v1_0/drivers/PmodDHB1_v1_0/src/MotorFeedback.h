@@ -1,3 +1,21 @@
+/******************************************************************************/
+/*                                                                            */
+/* MotorFeedback.h -- Driver definitions for the MotorFeedback IP             */
+/*                                                                            */
+/******************************************************************************/
+/* Author: Arvin Tang                                                         */
+/*                                                                            */
+/******************************************************************************/
+/* File Description:                                                          */
+/*                                                                            */
+/* This file contains the drivers for the MotorFeedback IP from Digilent.     */
+/*                                                                            */
+/******************************************************************************/
+/* Revision History:                                                          */
+/*                                                                            */
+/*    09/13/2017(atangzwj): Created                                           */
+/*                                                                            */
+/******************************************************************************/
 
 #ifndef MOTORFEEDBACK_H
 #define MOTORFEEDBACK_H
@@ -10,11 +28,12 @@
 
 /************ Macro Definitions ************/
 
-#define CLEAR_OFFSET    0x00
-#define M1_POS_OFFSET   0x04
-#define M2_POS_OFFSET   0x08
-#define POS_DIFF_OFFSET 0x0C
-#define CLK_OFFSET      0x10
+// Register offsets for MotorFeedback's AXI GPIO registers
+#define MOTORFEEDBACK_CLEAR_OFFSET    0x00
+#define MOTORFEEDBACK_M1_POS_OFFSET   0x04
+#define MOTORFEEDBACK_M2_POS_OFFSET   0x08
+#define MOTORFEEDBACK_POS_DIFF_OFFSET 0x0C
+#define MOTORFEEDBACK_CLK_OFFSET      0x10
 
 
 /**************************** Type Definitions *****************************/
@@ -93,24 +112,23 @@ typedef struct MotorFeedback {
 
 /************ Function Prototypes ************/
 
-void initMotorFeedback(MotorFeedback* motorFeedback,
-                       u32 baseAddr,
-                       u32 clkFreqHz,
-                       u32 edgesPerRev,
-                       u32 gearboxRatio);
+void MotorFeedback_init(MotorFeedback* motorFeedback, u32 baseAddr,
+      u32 clkFreqHz, u32 edgesPerRev, u32 gearboxRatio);
 
-void getMotorSpeeds(MotorFeedback* motorFeedback, int motor_speed[]);
+void MotorFeedback_getSpeeds(MotorFeedback* motorFeedback, int motor_speed[]);
 
-int16_t getDistanceTraveled(MotorFeedback* motorFeedback);
+int16_t MotorFeedback_getDistanceTraveled(MotorFeedback* motorFeedback);
 
-void getEdgeCounts(MotorFeedback* motorFeedback, int m1[], int m2[]);
+void MotorFeedback_getEdgeCounts(MotorFeedback* motorFeedback, int m1[],
+      int m2[]);
 
-void clearSpeedCounters(MotorFeedback* motorFeedback);
+void MotorFeedback_clearSpeedCounters(MotorFeedback* motorFeedback);
 
-void getMotorPositions(MotorFeedback* motorFeedback, int16_t motor_pos[]);
+void MotorFeedback_getPositions(MotorFeedback* motorFeedback,
+      int16_t motor_pos[]);
 
-int16_t getPositionDifference(MotorFeedback* motorFeedback);
+int16_t MotorFeedback_getPositionDifference(MotorFeedback* motorFeedback);
 
-void clearPosCounter(MotorFeedback* motorFeedback);
+void MotorFeedback_clearPosCounter(MotorFeedback* motorFeedback);
 
 #endif // MOTORFEEDBACK_H

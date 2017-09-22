@@ -26,9 +26,9 @@
 
 /************ Macro Definition ************/
 
-#define GPIO_CHANNEL_OFFSET 0x8
+#define DHB1_GPIO_CHANNEL_OFFSET 0x8
 
-#define PWM_PER 0x00030000
+#define DHB1_PWM_PER 0x00030000
 
 
 /************ Function Definitions ************/
@@ -51,13 +51,13 @@ void DHB1_begin(PmodDHB1* InstancePtr, u32 GPIO_Address, u32 PWM_Address) {
    InstancePtr->GPIO_addr = GPIO_Address;
    InstancePtr->PWM_addr  = PWM_Address;
 
-   PWM_Set_Period(PWM_Address, PWM_PER);
+   PWM_Set_Period(PWM_Address, DHB1_PWM_PER);
 }
 
 /*
- * void setDirs(PmodDHB1* InstancePtr, u8 dir1, u8 dir2)
- * void setDir1(PmodDHB1* InstancePtr, u8 dir1)
- * void setDir2(PmodDHB1* InstancePtr, u8 dir2)
+ * void DHB1_setDirs(PmodDHB1* InstancePtr, u8 dir1, u8 dir2)
+ * void DHB1_setDir1(PmodDHB1* InstancePtr, u8 dir1)
+ * void DHB1_setDir2(PmodDHB1* InstancePtr, u8 dir2)
  * -----------------------------------------------------------------------------
  * Parameters:
  *       InstancePtr: Pointer to a PmodDHB1 object to write motor directions to
@@ -74,23 +74,23 @@ void DHB1_begin(PmodDHB1* InstancePtr, u32 GPIO_Address, u32 PWM_Address) {
  *        - Motor2 only
  *       The LSB of dir1 and dir2 determine the value of the DIR1 and DIR2 pins.
  */
-void setDirs(PmodDHB1* InstancePtr, u8 dir1, u8 dir2) {
-   setDir1(InstancePtr, dir1);
-   setDir2(InstancePtr, dir2);
+void DHB1_setDirs(PmodDHB1* InstancePtr, u8 dir1, u8 dir2) {
+   DHB1_setDir1(InstancePtr, dir1);
+   DHB1_setDir2(InstancePtr, dir2);
 }
 
-void setDir1(PmodDHB1* InstancePtr, u8 dir1) {
+void DHB1_setDir1(PmodDHB1* InstancePtr, u8 dir1) {
    Xil_Out8(InstancePtr->GPIO_addr, dir1);
 }
 
-void setDir2(PmodDHB1* InstancePtr, u8 dir2) {
-   Xil_Out8(InstancePtr->GPIO_addr + GPIO_CHANNEL_OFFSET, dir2);
+void DHB1_setDir2(PmodDHB1* InstancePtr, u8 dir2) {
+   Xil_Out8(InstancePtr->GPIO_addr + DHB1_GPIO_CHANNEL_OFFSET, dir2);
 }
 
 /*
- * void setMotorSpeeds(PmodDHB1* InstancePtr, u8 m1, u8 m2)
- * void setMotor1Speed(PmodDHB1* InstancePtr, u8 m1)
- * void setMotor2Speed(PmodDHB1* InstancePtr, u8 m2)
+ * void DHB1_setMotorSpeeds(PmodDHB1* InstancePtr, u8 m1, u8 m2)
+ * void DHB1_setMotor1Speed(PmodDHB1* InstancePtr, u8 m1)
+ * void DHB1_setMotor2Speed(PmodDHB1* InstancePtr, u8 m2)
  * -----------------------------------------------------------------------------
  * Parameters:
  *       InstancePtr: Pointer to a PmodDHB1 object to set motor speeds for
@@ -104,17 +104,17 @@ void setDir2(PmodDHB1* InstancePtr, u8 dir2) {
  *       Set the duty cycle for one or both motors' enable signals. 0 turns off
  *       the motor(s), 100 for max speed
  */
-void setMotorSpeeds(PmodDHB1* InstancePtr, u8 m1, u8 m2) {
-   setMotor1Speed(InstancePtr, m1);
-   setMotor2Speed(InstancePtr, m2);
+void DHB1_setMotorSpeeds(PmodDHB1* InstancePtr, u8 m1, u8 m2) {
+   DHB1_setMotor1Speed(InstancePtr, m1);
+   DHB1_setMotor2Speed(InstancePtr, m2);
 }
 
-void setMotor1Speed(PmodDHB1* InstancePtr, u8 m1) {
+void DHB1_setMotor1Speed(PmodDHB1* InstancePtr, u8 m1) {
    double duty_cycle = m1 / 100.0;
-   PWM_Set_Duty(InstancePtr->PWM_addr, (u32) (duty_cycle * PWM_PER), 0);
+   PWM_Set_Duty(InstancePtr->PWM_addr, (u32) (duty_cycle * DHB1_PWM_PER), 0);
 }
 
-void setMotor2Speed(PmodDHB1* InstancePtr, u8 m2) {
+void DHB1_setMotor2Speed(PmodDHB1* InstancePtr, u8 m2) {
    double duty_cycle = m2 / 100.0;
-   PWM_Set_Duty(InstancePtr->PWM_addr, (u32) (duty_cycle * PWM_PER), 1);
+   PWM_Set_Duty(InstancePtr->PWM_addr, (u32) (duty_cycle * DHB1_PWM_PER), 1);
 }
