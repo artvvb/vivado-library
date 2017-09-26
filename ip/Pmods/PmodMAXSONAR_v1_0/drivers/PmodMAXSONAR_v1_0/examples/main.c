@@ -30,7 +30,11 @@
 
 #define PMOD_MAXSONAR_BASEADDR XPAR_PMODMAXSONAR_0_AXI_LITE_GPIO_BASEADDR
 
+#ifdef XPAR_MICROBLAZE_ID
 #define CLK_FREQ XPAR_CPU_M_AXI_DP_FREQ_HZ
+#else
+#define CLK_FREQ 100000000 // FCLK0 frequency not found in xparameters.h
+#endif
 
 
 /************ Global Variables ************/
