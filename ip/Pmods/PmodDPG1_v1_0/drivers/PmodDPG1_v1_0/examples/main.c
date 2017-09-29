@@ -130,7 +130,7 @@ void DemoRun() {
 
       xil_printf("\n\r\n\r");
 
-#ifdef XPAR_MICROBLAZE_ID
+#ifdef __MICROBLAZE__
       MB_Sleep(1200);
 #else
       sleep(2);
