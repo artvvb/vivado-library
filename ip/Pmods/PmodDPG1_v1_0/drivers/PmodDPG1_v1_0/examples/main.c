@@ -15,7 +15,7 @@
 /* Revision History:                                                          */
 /*                                                                            */
 /*    08/19/2016(jpeyron):  Created                                           */
-/*    09/21/2017(atangzwj): Validated for Vivado 2015.4                       */
+/*    09/29/2017(atangzwj): Validated for Vivado 2015.4                       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -26,7 +26,7 @@
 #include "xil_printf.h"
 #include "xparameters.h"
 
-#ifdef XPAR_MICROBLAZE_ID
+#ifdef __MICROBLAZE__
 #include "microblaze_sleep.h"
 #else
 #include "sleep.h"
