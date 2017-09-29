@@ -104,10 +104,9 @@ int DPG1_SPIInit(XSpi *SpiInstancePtr) {
       return XST_FAILURE;
    }
 
-   Status =
-         XSpi_SetOptions(SpiInstancePtr,
-               (XSP_MASTER_OPTION | XSP_CLK_ACTIVE_LOW_OPTION
-                     | XSP_CLK_PHASE_1_OPTION) | XSP_MANUAL_SSELECT_OPTION);
+   Status = XSpi_SetOptions(SpiInstancePtr, (XSP_MASTER_OPTION
+         | XSP_CLK_ACTIVE_LOW_OPTION | XSP_CLK_PHASE_1_OPTION)
+         | XSP_MANUAL_SSELECT_OPTION);
    if (Status != XST_SUCCESS) {
       return XST_FAILURE;
    }
