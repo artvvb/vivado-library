@@ -14,7 +14,7 @@
 /* Revision History:                                                          */
 /*                                                                            */
 /*    06/15/2016(MikelS):   Created                                           */
-/*    09/21/2017(atangzwj): Validated for Vivado 2015.4                       */
+/*    09/29/2017(atangzwj): Validated for Vivado 2015.4                       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -539,8 +539,8 @@ int GYRO_SPIInit(XSpi *SpiInstancePtr) {
    }
 
    Status = XSpi_SetOptions(SpiInstancePtr, (XSP_MASTER_OPTION
-                     | XSP_CLK_ACTIVE_LOW_OPTION | XSP_CLK_PHASE_1_OPTION)
-                     | XSP_MANUAL_SSELECT_OPTION);
+         | XSP_CLK_ACTIVE_LOW_OPTION | XSP_CLK_PHASE_1_OPTION)
+         | XSP_MANUAL_SSELECT_OPTION);
    if (Status != XST_SUCCESS) {
       return XST_FAILURE;
    }

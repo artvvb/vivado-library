@@ -14,7 +14,7 @@
 /* Revision History:                                                          */
 /*                                                                            */
 /*    06/15/2016(MikelS):   Created                                           */
-/*    09/21/2017(atangzwj): Validated for Vivado 2015.4                       */
+/*    09/29/2017(atangzwj): Validated for Vivado 2015.4                       */
 /*                                                                            */
 /******************************************************************************/
 

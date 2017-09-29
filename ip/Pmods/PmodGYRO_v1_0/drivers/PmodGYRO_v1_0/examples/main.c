@@ -15,7 +15,7 @@
 /* Revision History:                                                          */
 /*                                                                            */
 /*    06/15/2016(MikelS):   Created                                           */
-/*    09/21/2016(atangzwj): Validated for Vivado 2015.4                       */
+/*    09/29/2016(atangzwj): Validated for Vivado 2015.4                       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -25,7 +25,7 @@
 #include "xil_cache.h"
 #include "xil_printf.h"
 
-#ifdef XPAR_MICROBLAZE_ID
+#ifdef __MICROBLAZE__
 #include "microblaze_sleep.h"
 #else
 #include "sleep.h"
@@ -84,7 +84,7 @@ void DemoRun() {
 
    print("Starting...\n\r");
    while (1) {
-#ifdef XPAR_MICROBLAZE_ID
+#ifdef __MICROBLAZE__
       MB_Sleep(1000);
 #else
       usleep(500000);

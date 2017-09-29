@@ -954,7 +954,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>c1207724</spirit:value>
+            <spirit:value>5db3a77e</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -2056,8 +2056,8 @@
         <xilinx:taxonomy>/UserIP</xilinx:taxonomy>
       </xilinx:taxonomies>
       <xilinx:displayName>PmodGYRO_v1_0</xilinx:displayName>
-      <xilinx:coreRevision>3</xilinx:coreRevision>
-      <xilinx:coreCreationDateTime>2017-09-21T18:07:54Z</xilinx:coreCreationDateTime>
+      <xilinx:coreRevision>5</xilinx:coreRevision>
+      <xilinx:coreCreationDateTime>2017-09-29T21:01:56Z</xilinx:coreCreationDateTime>
       <xilinx:tags>
         <xilinx:tag xilinx:name="digilentinc.com:IP:PmodGYRO:1.0_ARCHIVE_LOCATION">C:/Users/user/Desktop/vivLib/ip/Pmods/PmodGYRO_v1_0</xilinx:tag>
       </xilinx:tags>
@@ -2114,7 +2114,7 @@
       <xilinx:xilinxVersion>2015.4</xilinx:xilinxVersion>
       <xilinx:checksum xilinx:scope="busInterfaces" xilinx:value="eac2b254"/>
       <xilinx:checksum xilinx:scope="memoryMaps" xilinx:value="27e126e0"/>
-      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="912cc473"/>
+      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="12896a64"/>
       <xilinx:checksum xilinx:scope="ports" xilinx:value="50af7ae9"/>
       <xilinx:checksum xilinx:scope="parameters" xilinx:value="04c49435"/>
     </xilinx:packagingInfo>
